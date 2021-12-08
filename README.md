@@ -11,13 +11,13 @@ You can setup this syncing to happen automatically on startup and keep on happen
 1. Setup git in your CLI so that you are able to commit, push, etc. 
    * If you don't know how to do this look [here](https://docs.github.com/en/get-started/quickstart/set-up-git) or [here](https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html)
 1. Clone this repo for ease of access and use
-1. Clone the repo you setup 
-   * If you don't know how look [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository)
-1. Copy the athenSyncer.gitignore file in this repo to the repo you just cloned, with the name **.gitignore**
-1. Point Athens DB to the folder containing your cloned repo
+   * If you don't know how to clone a repo look [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository)
+3. Clone the repo you setup 
+4. Copy the athenSyncer.gitignore file in this repo to the repo you just cloned, with the name **.gitignore**
+5. Point Athens DB to the folder containing your cloned repo
    * If you already have a DB you want to use start working find it and paste it into the folder. 
    * *Be warned this might make your images not appear in Athens but this can be fixed later manually*
-1. Run the main.py in this repo on your machine passing to it the **full** path to your cloned repo folder
+6. Run the main.py in this repo on your machine passing to it the **full** path to your cloned repo folder
     * `python3 FULL/PATH/TO/THE/main.py FULL/PATH/TO/THE/REPO/YOU/CREATED/EARLIER`
 
 Do the steps above on all machines you wanna sync your Athens DB
