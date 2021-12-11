@@ -15,7 +15,7 @@ You can setup this syncing to happen automatically on startup and keep on happen
 3. Clone the repo you setup 
 4. Copy the athenSyncer.gitignore file in this repo to the repo you just cloned, with the name **.gitignore**
 5. Point Athens DB to the folder containing your cloned repo
-   * If you already have a DB you want to use start working find it and paste it into the folder. 
+   * If you already have a DB you want to use find it and paste it into the folder. 
    * *Be warned this might make your images not appear in Athens but this can be fixed later manually*
 6. Run the main.py in this repo on your machine passing to it the **full** path to your cloned repo folder
     * `python3 FULL/PATH/TO/THE/main.py FULL/PATH/TO/THE/REPO/YOU/CREATED/EARLIER`
