@@ -44,8 +44,8 @@ To get this to happen on automatically on startup do the following
 
 
 ## Todo
-1. Use `subprocess` instead of `os`
-1. Fix cmd sometimes pops up on windows when you are writing and it syncs
+1. ~~Use `subprocess` instead of `os`~~
+1. ~~Fix cmd sometimes pops up on windows when you are writing and it syncs~~
 1. Git has stopped me from commiting a couple times but the program eventually just committed after I stopped writing and it caught up, look into this
 1. Implement a queue so that instead of commiting at every Athens save, make a queue and just push the last commit instead of push each one
 1. Add pics to Windows startup process
