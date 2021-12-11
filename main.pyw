@@ -4,6 +4,7 @@ from watchdog.events import FileSystemEventHandler
 import os, sys, time
 import subprocess
 
+CREATE_NO_WINDOW = 0x08000000
 class Handler(FileSystemEventHandler):
     def on_any_event(self, event):
         if "\\" in event.src_path:
@@ -15,11 +16,10 @@ class Handler(FileSystemEventHandler):
         if sliced_path[-1] != "index.transit": return
         print(event.event_type)
         print(event.src_path)
-        os.system("git add images/")
-        os.system("git add index.transit")
-        os.system(f"git commit -m \"New update at: {time.time()}\"")
-        os.system("git push")
-
+        subprocess.run("git add images/", creationflags=CREATE_NO_WINDOW)
+        subprocess.run("git add index.transit", creationflags=CREATE_NO_WINDOW)
+        subprocess.run(f"git commit -m \"New update at: {time.time()}\"", creationflags=CREATE_NO_WINDOW)
+        subprocess.run("git push", creationflags=CREATE_NO_WINDOW)
 
 CURRENT_DIR = ""
 if __name__ == "__main__":
