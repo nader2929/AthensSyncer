@@ -3,6 +3,14 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import os, sys, time
 import subprocess
+import urllib.request
+
+def check_internet_connection():
+    try:
+        urllib.request.urlopen("http://www.google.com")
+        return True
+    except:
+        return False
 
 CREATE_NO_WINDOW = 0x08000000
 class Handler(FileSystemEventHandler):
@@ -18,7 +26,7 @@ class Handler(FileSystemEventHandler):
         print(event.src_path)
         subprocess.run("git add images/", creationflags=CREATE_NO_WINDOW)
         subprocess.run("git add index.transit", creationflags=CREATE_NO_WINDOW)
-        subprocess.run(f"git commit -m \"New update at: {time.time()}\"", creationflags=CREATE_NO_WINDOW)
+        subprocess.run(f"git commit -m \"{os.getlogin()}: New update at: {time.time()}\"", creationflags=CREATE_NO_WINDOW)
         subprocess.run("git push", creationflags=CREATE_NO_WINDOW)
 
 CURRENT_DIR = ""
@@ -28,6 +36,10 @@ if __name__ == "__main__":
         print('Usage: python main.py INPUT')
         exit(1)
     os.chdir(INPUT)
+    while not check_internet_connection():
+        print("No internet")
+        time.sleep(5)
+    print("Got internet")
     os.system("git pull")
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(message)s',
