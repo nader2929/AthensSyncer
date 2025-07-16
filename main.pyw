@@ -1,10 +1,12 @@
 import logging
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
-import os, sys, time
 import subprocess
 import urllib.request
+import os, sys, time, platform
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
 
+PLATFORM=f"{platform.platform()}"
+print(PLATFORM)
 def check_internet_connection():
     try:
         urllib.request.urlopen("http://www.google.com")
@@ -15,19 +17,23 @@ def check_internet_connection():
 CREATE_NO_WINDOW = 0x08000000
 class Handler(FileSystemEventHandler):
     def on_any_event(self, event):
+        subprocess.run("git pull", shell=True)
+        if event.event_type != "modified":
+            return
         if "\\" in event.src_path:
-            print("First")
+            # print("Windows path")
+            if "\\logseq\\bak" in event.src_path:
+                return
             sliced_path = event.src_path.split("\\")
         else:
-            print("Second")
+            # print("Linux path")
+            if "/logseq/bak" in event.src_path:
+                return
             sliced_path = event.src_path.split("/")
-        if sliced_path[-1] != "index.transit": return
-        print(event.event_type)
-        print(event.src_path)
-        subprocess.run("git add images/", creationflags=CREATE_NO_WINDOW)
-        subprocess.run("git add index.transit", creationflags=CREATE_NO_WINDOW)
-        subprocess.run(f"git commit -m \"{os.getlogin()}: New update at: {time.time()}\"", creationflags=CREATE_NO_WINDOW)
-        subprocess.run("git push", creationflags=CREATE_NO_WINDOW)
+        # print(event.src_path)
+        subprocess.run("git add .", shell=True)
+        subprocess.run(f"git commit -m \"{PLATFORM}: New update at: {time.time()}\"", shell=True)
+        subprocess.run("git push", shell=True)
 
 CURRENT_DIR = ""
 if __name__ == "__main__":
@@ -47,7 +53,7 @@ if __name__ == "__main__":
     path = INPUT
     event_handler = Handler()
     observer = Observer()
-    observer.schedule(event_handler, path, recursive=False)
+    observer.schedule(event_handler, path, recursive=True)
     observer.start()
     try:
         while True:
